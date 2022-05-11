@@ -79,7 +79,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       (Bytes.toBytes("3"),
@@ -204,7 +204,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       (Bytes.toBytes("3"),
@@ -335,7 +335,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       (Bytes.toBytes("3"),
@@ -548,7 +548,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       ("1",
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       ("3",
@@ -675,7 +675,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       ("1",
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       ("3",
@@ -810,7 +810,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
     // 3. Column Families are not in order
     // 4. There are tests for records in one column family and some in two column families
     // 5. There are records will a single qualifier and some with two
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       ("1",
         (Bytes.toBytes(columnFamily1), Bytes.toBytes("a"), Bytes.toBytes("foo1"))),
       ("3",

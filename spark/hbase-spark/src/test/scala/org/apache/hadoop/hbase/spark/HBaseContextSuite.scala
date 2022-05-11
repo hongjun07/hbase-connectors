@@ -65,7 +65,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
 
   test("bulkput to test HBase client") {
     val config = TEST_UTIL.getConfiguration
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         Array((Bytes.toBytes(columnFamily), Bytes.toBytes("a"), Bytes.toBytes("foo1")))),
       (Bytes.toBytes("2"),
@@ -131,7 +131,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
       put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes("a"), Bytes.toBytes("foo3"))
       table.put(put)
 
-      val rdd = sc.parallelize(Array(
+      val rdd = sc.parallelize(Seq(
         Bytes.toBytes("delete1"),
         Bytes.toBytes("delete3")))
 
@@ -171,7 +171,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
       table.close()
       connection.close()
     }
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       Bytes.toBytes("get1"),
       Bytes.toBytes("get2"),
       Bytes.toBytes("get3"),
@@ -217,7 +217,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
   test("BulkGet failure test: bad table") {
     val config = TEST_UTIL.getConfiguration
 
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       Bytes.toBytes("get1"),
       Bytes.toBytes("get2"),
       Bytes.toBytes("get3"),
@@ -269,7 +269,7 @@ BeforeAndAfterEach with BeforeAndAfterAll  with Logging {
       connection.close()
     }
 
-    val rdd = sc.parallelize(Array(
+    val rdd = sc.parallelize(Seq(
       Bytes.toBytes("get1"),
       Bytes.toBytes("get2"),
       Bytes.toBytes("get3"),

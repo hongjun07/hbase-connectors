@@ -23,6 +23,8 @@ import org.apache.spark.sql.{DataFrame, SQLContext}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FunSuite}
 
+import scala.reflect.ClassTag
+
 case class FilterRangeRecord(
                               intCol0: Int,
                               boolCol1: Boolean,
@@ -94,7 +96,7 @@ class PartitionFilterSuite extends FunSuite with
     FilterRangeRecord(i)
   }
 
-  def collectToSet[T](df: DataFrame): Set[T] = {
+  def collectToSet[T:ClassTag](df: DataFrame): Set[T] = {
     df.collect().map(_.getAs[T](0)).toSet
   }
   val catalog = s"""{

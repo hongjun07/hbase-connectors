@@ -36,7 +36,7 @@ import org.apache.yetus.audience.InterfaceAudience;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import scala.collection.mutable.MutableList;
+import scala.collection.mutable.ListBuffer;
 
 import org.apache.hbase.thirdparty.com.google.protobuf.ByteString;
 import org.apache.hbase.thirdparty.com.google.protobuf.InvalidProtocolBufferException;
@@ -77,7 +77,7 @@ public class SparkSQLPushDownFilter extends FilterBase{
 
   public SparkSQLPushDownFilter(DynamicLogicExpression dynamicLogicExpression,
                                 byte[][] valueFromQueryArray,
-                                MutableList<Field> fields, String encoderClassName) {
+                                ListBuffer<Field> fields, String encoderClassName) {
     this.dynamicLogicExpression = dynamicLogicExpression;
     this.valueFromQueryArray = valueFromQueryArray;
     this.encoderClassName = encoderClassName;

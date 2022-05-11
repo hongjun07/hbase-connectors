@@ -62,7 +62,7 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
 
   test("bulkput to test HBase client") {
     val config = TEST_UTIL.getConfiguration
-    val rdd1 = sc.parallelize(Array(
+    val rdd1 = sc.parallelize(Seq(
       (Bytes.toBytes("1"),
         Array((Bytes.toBytes(columnFamily), Bytes.toBytes("a"), Bytes.toBytes("foo1")))),
       (Bytes.toBytes("2"),
@@ -70,7 +70,7 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
       (Bytes.toBytes("3"),
         Array((Bytes.toBytes(columnFamily), Bytes.toBytes("c"), Bytes.toBytes("foo3"))))))
 
-    val rdd2 = sc.parallelize(Array(
+    val rdd2 = sc.parallelize(Seq(
       (Bytes.toBytes("4"),
         Array((Bytes.toBytes(columnFamily), Bytes.toBytes("d"), Bytes.toBytes("foo")))),
       (Bytes.toBytes("5"),

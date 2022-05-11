@@ -31,7 +31,7 @@ import org.apache.spark.streaming.api.java.JavaDStream
 
 import java.lang.Iterable
 
-import scala.collection.JavaConversions._
+import scala.jdk.CollectionConverters._
 import scala.reflect.ClassTag
 
 /**
@@ -65,7 +65,7 @@ class JavaHBaseContext(@transient val jsc: JavaSparkContext,
 
     hbaseContext.foreachPartition(javaRdd.rdd,
       (it: Iterator[T], conn: Connection) => {
-        f.call((it, conn))
+        f.call((it.asJava, conn))
       })
   }
 
@@ -111,7 +111,7 @@ class JavaHBaseContext(@transient val jsc: JavaSparkContext,
                             Connection), R]): JavaRDD[R] = {
     JavaRDD.fromRDD(hbaseContext.mapPartitions(javaRdd.rdd,
       (it: Iterator[T], conn: Connection) =>
-        f.call(it, conn))(fakeClassTag[R]))(fakeClassTag[R])
+        f.call((it.asJava, conn)).asScala)(fakeClassTag[R]))(fakeClassTag[R])
   }
 
   /**

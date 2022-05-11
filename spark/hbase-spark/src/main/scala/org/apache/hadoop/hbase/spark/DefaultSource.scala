@@ -326,7 +326,7 @@ case class HBaseRelation (
     logDebug("valueArray:                     " + valueArray.length)
 
     val requiredQualifierDefinitionList =
-      new mutable.MutableList[Field]
+      new mutable.ListBuffer[Field]
 
     requiredColumns.foreach( c => {
       val field = catalog.getField(c)
@@ -356,7 +356,7 @@ case class HBaseRelation (
     } else {
       None
     }
-    val hRdd = new HBaseTableScanRDD(this, hbaseContext, pushDownFilterJava, requiredQualifierDefinitionList.seq)
+    val hRdd = new HBaseTableScanRDD(this, hbaseContext, pushDownFilterJava, requiredQualifierDefinitionList.toSeq)
     pushDownRowKeyFilter.points.foreach(hRdd.addPoint(_))
     pushDownRowKeyFilter.ranges.foreach(hRdd.addRange(_))
 
@@ -393,7 +393,7 @@ case class HBaseRelation (
   def buildPushDownPredicatesResource(filters: Array[Filter]):
   (RowKeyFilter, DynamicLogicExpression, Array[Array[Byte]]) = {
     var superRowKeyFilter:RowKeyFilter = null
-    val queryValueList = new mutable.MutableList[Array[Byte]]
+    val queryValueList = new mutable.ListBuffer[Array[Byte]]
     var superDynamicLogicExpression: DynamicLogicExpression = null
 
     filters.foreach( f => {
@@ -432,7 +432,7 @@ case class HBaseRelation (
     */
 
   def transverseFilterTree(parentRowKeyFilter:RowKeyFilter,
-                                  valueArray:mutable.MutableList[Array[Byte]],
+                                  valueArray:mutable.ListBuffer[Array[Byte]],
                                   filter:Filter): DynamicLogicExpression = {
     filter match {
       case EqualTo(attr, value) =>
@@ -731,10 +731,10 @@ class ScanRange(var upperBound:Array[Byte], var isUpperBoundEqualTo:Boolean,
 @InterfaceAudience.Private
 class ColumnFilter (currentPoint:Array[Byte] = null,
                      currentRange:ScanRange = null,
-                     var points:mutable.MutableList[Array[Byte]] =
-                     new mutable.MutableList[Array[Byte]](),
-                     var ranges:mutable.MutableList[ScanRange] =
-                     new mutable.MutableList[ScanRange]() ) extends Serializable {
+                     var points:mutable.ListBuffer[Array[Byte]] =
+                     new mutable.ListBuffer[Array[Byte]](),
+                     var ranges:mutable.ListBuffer[ScanRange] =
+                     new mutable.ListBuffer[ScanRange]() ) extends Serializable {
   //Collection of ranges
   if (currentRange != null ) ranges.+=(currentRange)
 
@@ -808,7 +808,7 @@ class ColumnFilter (currentPoint:Array[Byte] = null,
    * @param other Filter to merge
    */
   def mergeIntersect(other:ColumnFilter): Unit = {
-    val survivingPoints = new mutable.MutableList[Array[Byte]]()
+    val survivingPoints = new mutable.ListBuffer[Array[Byte]]()
     points.foreach( p => {
       other.points.foreach( otherP => {
         if (Bytes.equals(p, otherP)) {
@@ -818,7 +818,7 @@ class ColumnFilter (currentPoint:Array[Byte] = null,
     })
     points = survivingPoints
 
-    val survivingRanges = new mutable.MutableList[ScanRange]()
+    val survivingRanges = new mutable.ListBuffer[ScanRange]()
 
     other.ranges.foreach( otherR => {
       ranges.foreach( r => {
@@ -978,10 +978,10 @@ object DefaultSourceStaticUtils {
 class RowKeyFilter (currentPoint:Array[Byte] = null,
                     currentRange:ScanRange =
                     new ScanRange(null, true, new Array[Byte](0), true),
-                    var points:mutable.MutableList[Array[Byte]] =
-                    new mutable.MutableList[Array[Byte]](),
-                    var ranges:mutable.MutableList[ScanRange] =
-                    new mutable.MutableList[ScanRange]() ) extends Serializable {
+                    var points:mutable.ListBuffer[Array[Byte]] =
+                    new mutable.ListBuffer[Array[Byte]](),
+                    var ranges:mutable.ListBuffer[ScanRange] =
+                    new mutable.ListBuffer[ScanRange]() ) extends Serializable {
   //Collection of ranges
   if (currentRange != null ) ranges.+=(currentRange)
 
@@ -1056,8 +1056,8 @@ class RowKeyFilter (currentPoint:Array[Byte] = null,
    * @param other Filter to merge
    */
   def mergeIntersect(other:RowKeyFilter): RowKeyFilter = {
-    val survivingPoints = new mutable.MutableList[Array[Byte]]()
-    val didntSurviveFirstPassPoints = new mutable.MutableList[Array[Byte]]()
+    val survivingPoints = new mutable.ListBuffer[Array[Byte]]()
+    val didntSurviveFirstPassPoints = new mutable.ListBuffer[Array[Byte]]()
     if (points == null || points.length == 0) {
       other.points.foreach( otherP => {
         didntSurviveFirstPassPoints += otherP
@@ -1078,7 +1078,7 @@ class RowKeyFilter (currentPoint:Array[Byte] = null,
       })
     }
 
-    val survivingRanges = new mutable.MutableList[ScanRange]()
+    val survivingRanges = new mutable.ListBuffer[ScanRange]()
 
     if (ranges.length == 0) {
       didntSurviveFirstPassPoints.foreach(p => {

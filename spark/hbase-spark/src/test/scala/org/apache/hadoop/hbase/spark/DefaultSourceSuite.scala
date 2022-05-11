@@ -332,13 +332,13 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
     assert(executionRules.rowKeyFilter.points.size == 0)
     assert(executionRules.rowKeyFilter.ranges.size == 2)
 
-    val scanRange1 = executionRules.rowKeyFilter.ranges.get(0).get
+    val scanRange1 = executionRules.rowKeyFilter.ranges(0)
     assert(Bytes.equals(scanRange1.lowerBound,Bytes.toBytes("")))
     assert(Bytes.equals(scanRange1.upperBound,Bytes.toBytes("get2")))
     assert(scanRange1.isLowerBoundEqualTo)
     assert(!scanRange1.isUpperBoundEqualTo)
 
-    val scanRange2 = executionRules.rowKeyFilter.ranges.get(1).get
+    val scanRange2 = executionRules.rowKeyFilter.ranges(1)
     assert(Bytes.equals(scanRange2.lowerBound,Bytes.toBytes("get3")))
     assert(scanRange2.upperBound == null)
     assert(!scanRange2.isLowerBoundEqualTo)
@@ -388,12 +388,12 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
 
     assert(executionRules.rowKeyFilter.ranges.size == 3)
 
-    val scanRange1 = executionRules.rowKeyFilter.ranges.get(0).get
+    val scanRange1 = executionRules.rowKeyFilter.ranges(0)
     assert(Bytes.equals(scanRange1.upperBound, Bytes.toBytes(2)))
     assert(scanRange1.isLowerBoundEqualTo)
     assert(!scanRange1.isUpperBoundEqualTo)
 
-    val scanRange2 = executionRules.rowKeyFilter.ranges.get(1).get
+    val scanRange2 = executionRules.rowKeyFilter.ranges(1)
     assert(scanRange2.isUpperBoundEqualTo)
 
     assert(results.length == 2)
@@ -418,7 +418,7 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
     assert(executionRules.rowKeyFilter.points.size == 0)
     assert(executionRules.rowKeyFilter.ranges.size == 1)
 
-    val scanRange1 = executionRules.rowKeyFilter.ranges.get(0).get
+    val scanRange1 = executionRules.rowKeyFilter.ranges(0)
     assert(Bytes.equals(scanRange1.lowerBound,Bytes.toBytes("get2")))
     assert(Bytes.equals(scanRange1.upperBound, Bytes.toBytes("get3")))
     assert(scanRange1.isLowerBoundEqualTo)
@@ -459,7 +459,7 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
     assert(executionRules.rowKeyFilter.points.size == 1)
     assert(executionRules.rowKeyFilter.ranges.size == 1)
 
-    val scanRange1 = executionRules.rowKeyFilter.ranges.get(0).get
+    val scanRange1 = executionRules.rowKeyFilter.ranges(0)
     assert(Bytes.equals(scanRange1.lowerBound,Bytes.toBytes("get3")))
     assert(scanRange1.upperBound == null)
     assert(scanRange1.isLowerBoundEqualTo)
@@ -489,13 +489,13 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
     assert(executionRules.rowKeyFilter.points.size == 0)
     assert(executionRules.rowKeyFilter.ranges.size == 2)
 
-    val scanRange1 = executionRules.rowKeyFilter.ranges.get(0).get
+    val scanRange1 = executionRules.rowKeyFilter.ranges(0)
     assert(Bytes.equals(scanRange1.lowerBound,Bytes.toBytes(1)))
     assert(Bytes.equals(scanRange1.upperBound, Bytes.toBytes(2)))
     assert(scanRange1.isLowerBoundEqualTo)
     assert(scanRange1.isUpperBoundEqualTo)
 
-    val scanRange2 = executionRules.rowKeyFilter.ranges.get(1).get
+    val scanRange2 = executionRules.rowKeyFilter.ranges(1)
     assert(Bytes.equals(scanRange2.lowerBound,Bytes.toBytes(3)))
     assert(Bytes.equals(scanRange2.upperBound, Bytes.toBytes(5)))
     assert(!scanRange2.isLowerBoundEqualTo)
@@ -523,13 +523,13 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
     assert(executionRules.rowKeyFilter.points.size == 0)
     assert(executionRules.rowKeyFilter.ranges.size == 2)
 
-    val scanRange1 = executionRules.rowKeyFilter.ranges.get(0).get
+    val scanRange1 = executionRules.rowKeyFilter.ranges(0)
     assert(Bytes.equals(scanRange1.lowerBound,Bytes.toBytes("get1")))
     assert(Bytes.equals(scanRange1.upperBound, Bytes.toBytes("get2")))
     assert(scanRange1.isLowerBoundEqualTo)
     assert(scanRange1.isUpperBoundEqualTo)
 
-    val scanRange2 = executionRules.rowKeyFilter.ranges.get(1).get
+    val scanRange2 = executionRules.rowKeyFilter.ranges(1)
     assert(Bytes.equals(scanRange2.lowerBound, Bytes.toBytes("get3")))
     assert(Bytes.equals(scanRange2.upperBound, Bytes.toBytes("get5")))
     assert(!scanRange2.isLowerBoundEqualTo)
@@ -554,7 +554,7 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
     assert(executionRules.rowKeyFilter.points.size == 0)
     assert(executionRules.rowKeyFilter.ranges.size == 1)
 
-    val scanRange1 = executionRules.rowKeyFilter.ranges.get(0).get
+    val scanRange1 = executionRules.rowKeyFilter.ranges(0)
     //This is the main test for 14406
     //Because the key is joined through a or with a qualifier
     //There is no filter on the rowKey
@@ -581,7 +581,7 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
     assert(executionRules.rowKeyFilter.points.size == 0)
     assert(executionRules.rowKeyFilter.ranges.size == 1)
 
-    val scanRange1 = executionRules.rowKeyFilter.ranges.get(0).get
+    val scanRange1 = executionRules.rowKeyFilter.ranges(0)
     assert(Bytes.equals(scanRange1.lowerBound,Bytes.toBytes("")))
     assert(scanRange1.upperBound == null)
     assert(scanRange1.isLowerBoundEqualTo)
@@ -604,7 +604,7 @@ BeforeAndAfterEach with BeforeAndAfterAll with Logging {
     assert(executionRules.rowKeyFilter.points.size == 0)
     assert(executionRules.rowKeyFilter.ranges.size == 1)
 
-    val scanRange1 = executionRules.rowKeyFilter.ranges.get(0).get
+    val scanRange1 = executionRules.rowKeyFilter.ranges(0)
     assert(Bytes.equals(scanRange1.lowerBound,Bytes.toBytes("")))
     assert(scanRange1.upperBound == null)
     assert(scanRange1.isLowerBoundEqualTo)
