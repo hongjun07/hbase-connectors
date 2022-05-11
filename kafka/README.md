@@ -30,9 +30,8 @@ pass them as properties on the command line; i.e `-Dkey=value`.
 
 ## Usage
 
-1. Make sure the `hbase` command is in your path. The proxy runs `hbase classpath` to find hbase libraries.
-2. Create any topics in your kafka broker that you wish to use.
-3. Set up _kafka-route-rules.xml_.  This file controls how the mutations are routed.  There are two kinds of rules: _route_ and _drop_.
+1. Create any topics in your kafka broker that you wish to use.
+2. Set up _kafka-route-rules.xml_.  This file controls how the mutations are routed.  There are two kinds of rules: _route_ and _drop_.
  * _drop_: any mutation that matches this rule will be dropped.
  * _route_: any mutation that matches this rule will be routed to the configured topic.
 

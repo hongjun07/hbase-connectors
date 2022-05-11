@@ -83,12 +83,9 @@
       <artifactId>hbase-shaded-miscellaneous</artifactId>
     </dependency>
     <dependency>
-      <!--Relying on hadoop2. Not messing with hadoop2/hadoop3 stuff
-           in here. Its just a proxy. Just needs hadoop-common for
-           Configuration stuff and some basics -->
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-common</artifactId>
-      <version>${hadoop-two.version}</version>
+      <version>${hadoop.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-beanutils</groupId>
@@ -146,7 +143,6 @@
     <dependency>
       <groupId>org.apache.hbase</groupId>
       <artifactId>hbase-server</artifactId>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.hbase</groupId>
