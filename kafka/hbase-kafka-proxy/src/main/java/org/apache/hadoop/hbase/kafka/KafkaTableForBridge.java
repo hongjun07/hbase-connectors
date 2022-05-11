@@ -70,11 +70,6 @@ public class KafkaTableForBridge implements Table {
     List<String> topics = new ArrayList<>();
   }
 
-  @Override
-  public RegionLocator getRegionLocator() throws IOException {
-    throw new UnsupportedOperationException();
-  }
-
   public KafkaTableForBridge(TableName tableName,
                  Configuration conf,
                  TopicRoutingRules routingRules,

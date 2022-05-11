@@ -910,7 +910,7 @@ class HBaseContext(@transient val sc: SparkContext,
       .withChecksumType(ChecksumType
         .nameToType(conf.get(HConstants.CHECKSUM_TYPE_NAME,
           ChecksumType.getDefaultChecksumType.getName)))
-      .withCellComparator(CellComparator.getInstance())
+//      .withCellComparator(CellComparator.getInstance())
       .withBytesPerCheckSum(conf.getInt(HConstants.BYTES_PER_CHECKSUM,
         HFile.DEFAULT_BYTES_PER_CHECKSUM))
       .withBlockSize(familyOptions.blockSize)
