@@ -33,9 +33,6 @@
     Module that does project assembly and that is all that it does.
   </description>
   <packaging>pom</packaging>
-  <properties>
-    <license.bundles.dependencies>true</license.bundles.dependencies>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>org.apache.hbase.connectors.kafka</groupId>
