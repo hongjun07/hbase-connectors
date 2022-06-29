@@ -289,7 +289,16 @@ object HBaseTableCatalog {
   @deprecated("Please use new json format to define HBaseCatalog")
   // TODO: There is no need to deprecate since this is the first release.
   def convert(parameters: Map[String, String]): Map[String, String] = {
-    val tableName = parameters.get(TABLE_KEY).getOrElse(null)
+    val table = parameters.get(TABLE_KEY).getOrElse(null)
+    val namespaceDelimIndex = table.indexOf(":")
+    var tableName, tableNamespace = ""
+    if(namespaceDelimIndex < 0) {
+      tableNamespace = "default"
+      tableName = table.trim
+    } else {
+      tableNamespace = table.substring(0, namespaceDelimIndex).trim
+      tableName = table.substring(namespaceDelimIndex + 1).trim
+    }
     // if the hbase.table is not defined, we assume it is json format already.
     if (tableName == null) return parameters
     val schemaMappingString = parameters.getOrElse(SCHEMA_COLUMNS_MAPPING_KEY, "")
@@ -304,7 +313,7 @@ object HBaseTableCatalog {
     }
     val jsonCatalog =
       s"""{
-         |"table":{"namespace":"default", "name":"${tableName}"},
+         |"table":{"namespace":"${tableNamespace}", "name":"${tableName}"},
          |"rowkey":"${rowkey.mkString(":")}",
          |"columns":{
          |${cols.mkString(",")}

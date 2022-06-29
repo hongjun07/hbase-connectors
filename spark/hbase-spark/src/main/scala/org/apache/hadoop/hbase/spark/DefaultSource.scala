@@ -128,11 +128,10 @@ case class HBaseRelation (
 
   //create or get latest HBaseContext
   val hbaseContext:HBaseContext = if (useHBaseContext) {
+    if(LatestHBaseContextCache.latest == null) createHbaseContext(configResources)
     LatestHBaseContextCache.latest
   } else {
-    val config = HBaseConfiguration.create()
-    configResources.map(resource => resource.split(",").foreach(r => config.addResource(r)))
-    new HBaseContext(sqlContext.sparkContext, config)
+    createHbaseContext(configResources)
   }
 
   val wrappedConf = new SerializableConfiguration(hbaseContext.config)
@@ -146,7 +145,11 @@ case class HBaseRelation (
    */
   override val schema: StructType = userSpecifiedSchema.getOrElse(catalog.toDataType)
 
-
+  def createHbaseContext(configResources: Option[String]): HBaseContext = {
+    val config = HBaseConfiguration.create()
+    configResources.map(resource => resource.split(",").foreach(r => config.addResource(r)))
+    new HBaseContext(sqlContext.sparkContext, config)
+  }
 
   def createTable() {
     val numReg = parameters.get(HBaseTableCatalog.newTable).map(x => x.toInt).getOrElse(0)
